@@ -1,9 +1,29 @@
-﻿namespace MyCity.DataAccess.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class BaseEntity<T>
+namespace MyCity.DataAccess.Models;
+
+public class BaseEntity<TType> : IBaseEntity
 {
-    public T Id { get; set; }
-    public bool IsValid { get; set; }
-    public DateTime CreatedDate { get; set; }
-    public DateTime ModifiedDate { get; set; }
+    public BaseEntity()
+    {
+        DateCreated = DateTime.UtcNow;
+    }
+
+    /// <summary>
+    ///     Идентификатор записи
+    /// </summary>
+    [Key]
+    public TType Id { get; set; }
+
+    /// <summary>
+    ///     Признак активности записи
+    /// </summary>
+    public bool IsActive { get; set; } = true;
+
+    /// <summary>
+    ///     Дата создания записи
+    /// </summary>
+    [Column(TypeName = "timestamp without time zone")]
+    public DateTime DateCreated { get; set; }
 }

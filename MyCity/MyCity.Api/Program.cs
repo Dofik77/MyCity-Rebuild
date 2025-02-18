@@ -1,3 +1,4 @@
+using MyCity.DataAccess;
 using MyCity.DataAccess.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,8 +9,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContexts(configuration);
+builder.Services.AddRepositories<ApplicationContext>();
 
 var app = builder.Build();
+
+var migrator = app.Services;
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -17,9 +17,20 @@ public static class ServiceCollectionExtensions
         var connection = configuration.GetValue<string>("ConnectionStrings:Main");
         
         services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(connection));
-        // services.AddScoped<IUnitOfWork, UnitOfWork<ApplicationContext>>();
-        // services.AddScoped<IMigrator, Migrator>();
+        services.AddScoped<IUnitOfWork, UnitOfWork<ApplicationContext>>();
+        services.AddScoped<IMigrator, Migrator>();
     
         return services;
     }
+    
+     /// <summary>
+     ///     Добавление репозиториев БД
+     /// </summary>
+     public static IServiceCollection AddRepositories<TDbContext>(this IServiceCollection services)
+         where TDbContext : DbContext
+     {
+         services.AddScoped<IRepository<Location>, Repository<Location, Guid, TDbContext>>(); ;
+         
+         return services;
+     }
 }

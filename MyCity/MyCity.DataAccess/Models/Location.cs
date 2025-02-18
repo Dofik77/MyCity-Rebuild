@@ -1,6 +1,6 @@
 ﻿namespace MyCity.DataAccess.Models;
 
-public class Location : BaseEntity<long>
+public class Location : BaseEntity<Guid>
 {
     public string Name { get; set; }
     
