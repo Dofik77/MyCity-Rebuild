@@ -13,8 +13,6 @@ builder.Services.AddRepositories<ApplicationContext>();
 
 var app = builder.Build();
 
-var migrator = app.Services;
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

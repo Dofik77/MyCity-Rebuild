@@ -9,8 +9,7 @@ public class ApplicationContext : DbContext
     
     public ApplicationContext()
     {
-        //Database.EnsureDeleted();
-        //Database.EnsureCreated();
+
     }
     
     public ApplicationContext(DbContextOptions options) : base(options)
@@ -19,6 +18,6 @@ public class ApplicationContext : DbContext
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        //optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=MyCity;Username=postgres;Password=123");
+       
     }
 }

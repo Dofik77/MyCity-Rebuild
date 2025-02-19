@@ -15,8 +15,14 @@ public static class ServiceCollectionExtensions
         IConfiguration configuration)
     {
         var connection = configuration.GetValue<string>("ConnectionStrings:Main");
+
+        services.AddDbContext<ApplicationContext>(
+            options => options.UseNpgsql(connection, x =>
+                {
+                    x.MigrationsAssembly("MyCity.Migrator");
+                })
+            );
         
-        services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(connection));
         services.AddScoped<IUnitOfWork, UnitOfWork<ApplicationContext>>();
         services.AddScoped<IMigrator, Migrator>();
     
