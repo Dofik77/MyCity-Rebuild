@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyCity.DataAccess;
 using MyCity.DataAccess.Models;
+using MyCity.DataAccess.Utils;
 
 namespace MyCity.Controllers;
 
@@ -8,19 +9,22 @@ namespace MyCity.Controllers;
 [Route("api/[controller]")]
 public class LocationController : ControllerBase
 {
+    private readonly IUnitOfWork _unitOfWork;
+    
+    public LocationController(IUnitOfWork unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+    }
+    
     [HttpGet]
-    public async Task<ActionResult> CreateLocation()
+    public async Task<ActionResult> CreateLocation(CancellationToken cancellationToken = default)
     {
         // добавление данных
-        using (ApplicationContext db = new ApplicationContext())
-        {
-            db.Locations.Add(new Location()
-            {
-                Name = "test"
-            });
-            db.SaveChanges();
-        }
-
+        var location = new Location();
+        
+        await _unitOfWork.LocationRepository.AddAsync(location, cancellationToken);
+        await _unitOfWork.LocationRepository.SaveChangesAsync();
+        
         return Ok();
     }
 }

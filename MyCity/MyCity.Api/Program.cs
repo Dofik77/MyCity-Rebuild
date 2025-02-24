@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore.Migrations.Internal;
 using MyCity.DataAccess;
 using MyCity.DataAccess.Utils;
 

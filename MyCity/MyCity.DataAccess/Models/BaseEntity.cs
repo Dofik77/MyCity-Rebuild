@@ -24,6 +24,6 @@ public class BaseEntity<TType> : IBaseEntity
     /// <summary>
     ///     Дата создания записи
     /// </summary>
-    [Column(TypeName = "timestamp without time zone")]
+    //[Column(TypeName = "timestamp without time zone")]
     public DateTime DateCreated { get; set; }
 }
