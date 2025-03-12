@@ -15,15 +15,33 @@ public class LocationController : ControllerBase
     {
         _unitOfWork = unitOfWork;
     }
-    
-    [HttpGet]
-    public async Task<ActionResult> CreateLocation(CancellationToken cancellationToken = default)
+
+    [HttpPost, Route("AddLocation")]
+    public async Task<ActionResult> SetLocation(CancellationToken cancellationToken)
     {
-        // добавление данных
-        var location = new Location();
+        var location = new Location()
+        {
+            Name = "SomeLocation",
+            DateCreated = DateTime.UtcNow,
+            Id = Guid.NewGuid()
+        };
         
         await _unitOfWork.LocationRepository.AddAsync(location, cancellationToken);
-        await _unitOfWork.LocationRepository.SaveChangesAsync();
+
+        List<Location> locations = new();
+        
+        for (int i = 0; i < 3; i++)
+        {
+            locations.Add(new Location()
+            {
+                Name = "SomeLocation" + i,
+                DateCreated = DateTime.UtcNow,
+                Id = Guid.NewGuid()
+            });
+        }
+        
+        await _unitOfWork.LocationRepository.AddRangeAsync(locations, cancellationToken);
+        await _unitOfWork.SaveEntitiesAsync(cancellationToken);
         
         return Ok();
     }

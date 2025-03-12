@@ -12,7 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MyCity.DataAccess\MyCity.DataAccess.csproj" />
       <ProjectReference Include="..\MyCity.Domain\MyCity.Domain.csproj" />
       <ProjectReference Include="..\MyCity.Migrator\MyCity.Migrator.csproj" />
     </ItemGroup>
